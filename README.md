@@ -44,6 +44,14 @@ Using Puppeteer and the FoxSports website, you can scrape and save all daily MLB
 
 <article>
 
+- NPM Install dependencies.
+
+- Run config/seasons.js to initialize the season collection in database
+
+- On Line 10, adjust URL date to the specific date needed.
+
+- Run serer.js to automatically scrape game data from date selected, save all games to each team's document, aggregate all teams scores and league averages then save to season document.
+
 </article>
 
 </div>
