@@ -16,7 +16,7 @@ Using Puppeteer and the FoxSports website, you can scrape and save all daily MLB
 |        Description        | Screenshot                                                |
 | :-----------------------: | --------------------------------------------------------- |
 |   <h3>Daily Scores</h3>   | <img src="https://i.imgur.com/CyCXcMz.png" width="700" /> |
-| <h3>Puppeteer Return</h3> | <img src="https://i.imgur.com/wbYdNSu.png" width="700" /> |
+| <h3>Puppeteer Return</h3> | <img src="https://i.imgur.com/TFPDTJd.png" width="700" /> |
 
 </div>
 
