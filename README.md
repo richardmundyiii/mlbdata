@@ -10,3 +10,26 @@ Using Puppeteer and the FoxSports website, you can scrape and save all daily MLB
   </div>
 
 <div>
+
+## :camera_flash: Screenshots
+
+|      Description      | Screenshot                                                |
+| :-------------------: | --------------------------------------------------------- |
+| <h3>Daily Scores</h3> | <img src="https://i.imgur.com/CyCXcMz.png" width="700" /> |
+
+</div>
+
+<div>
+
+## :computer: Technologies Used
+
+![MongoDB](https://img.shields.io/badge/-MongoDB-05122A?style=flat&logo=mongodb)
+![Express](https://img.shields.io/badge/-Express-05122A?style=flat&logo=express)
+![Node](https://img.shields.io/badge/-Node.js-05122A?style=flat&logo=node.js)
+![Mongoose ODM](https://img.shields.io/badge/-Mongoose_ODM-05122A?style=flat&logo=mongodb)
+![JavaScript](https://img.shields.io/badge/-JavaScript-05122A?style=flat&logo=javascript)
+![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)
+![Github](https://img.shields.io/badge/-GitHub-05122A?style=flat&logo=github)
+![VSCode](https://img.shields.io/badge/-VS_Code-05122A?style=flat&logo=visualstudio)
+
+</div>
