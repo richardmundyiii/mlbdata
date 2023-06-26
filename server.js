@@ -1,13 +1,13 @@
 const puppeteer = require("puppeteer");
 const mongoose = require("mongoose");
-const Twenty23 = require("./config/models/mlbData");
+const Twenty23 = require("../../models/mlbData");
 require("dotenv").config();
-require("./config/database");
+require("../../config/database");
 
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://www.foxsports.com/mlb/scores?date=2023-03-30", {
+  await page.goto("https://www.foxsports.com/mlb/scores?date=2023-03-31", {
     waitUntil: "domcontentloaded",
   });
 
@@ -36,7 +36,6 @@ require("./config/database");
     });
   });
 
-  console.log(gameData);
   await browser.close();
 
   for (let game of gameData) {
@@ -79,5 +78,65 @@ require("./config/database");
     if (!awayTeamUpdate) {
       console.log(`No match found for away team: ${game.awayTeam}`);
     }
+  }
+
+  try {
+    const results = await Twenty23.aggregate([
+      { $unwind: "$teams" },
+      { $unwind: "$teams.awayRunsAgainst" },
+      { $unwind: "$teams.awayRunsFor" },
+      { $unwind: "$teams.homeRunsAgainst" },
+      { $unwind: "$teams.homeRunsFor" },
+      {
+        $group: {
+          _id: "$teams.teamName",
+          avgAwayRunsAgainst: { $avg: "$teams.awayRunsAgainst" },
+          avgAwayRunsFor: { $avg: "$teams.awayRunsFor" },
+          avgHomeRunsAgainst: { $avg: "$teams.homeRunsAgainst" },
+          avgHomeRunsFor: { $avg: "$teams.homeRunsFor" },
+        },
+      },
+    ]);
+
+    for (let result of results) {
+      await Twenty23.findOneAndUpdate(
+        { "teams.teamName": result._id },
+        {
+          $set: {
+            "teams.$.avgAwayRunsAgainst": result.avgAwayRunsAgainst,
+            "teams.$.avgAwayRunsFor": result.avgAwayRunsFor,
+            "teams.$.avgHomeRunsAgainst": result.avgHomeRunsAgainst,
+            "teams.$.avgHomeRunsFor": result.avgHomeRunsFor,
+          },
+        }
+      );
+    }
+
+    const totalAverages = await Twenty23.aggregate([
+      { $unwind: "$teams" },
+      {
+        $group: {
+          _id: null,
+          totalAvgAwayRunsAgainst: { $avg: "$teams.avgAwayRunsAgainst" },
+          totalAvgAwayRunsFor: { $avg: "$teams.avgAwayRunsFor" },
+          totalAvgHomeRunsAgainst: { $avg: "$teams.avgHomeRunsAgainst" },
+          totalAvgHomeRunsFor: { $avg: "$teams.avgHomeRunsFor" },
+        },
+      },
+    ]);
+
+    await Twenty23.findOneAndUpdate(
+      { year: 2023 },
+      {
+        $set: {
+          avgAwayRunsAgainst: totalAverages[0].totalAvgAwayRunsAgainst,
+          avgAwayRunsFor: totalAverages[0].totalAvgAwayRunsFor,
+          avgHomeRunsAgainst: totalAverages[0].totalAvgHomeRunsAgainst,
+          avgHomeRunsFor: totalAverages[0].totalAvgHomeRunsFor,
+        },
+      }
+    );
+  } catch (err) {
+    console.log(err);
   }
 })();
