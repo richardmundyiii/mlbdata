@@ -55,3 +55,15 @@ Using Puppeteer and the FoxSports website, you can scrape and save all daily MLB
 </article>
 
 </div>
+
+<div>
+
+## Upcoming Features
+
+<article>
+
+- Adding Cron to auto run daily.
+
+</article>
+
+</div>

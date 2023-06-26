@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "dependencies": {
+    "cron": "^2.3.1",
     "dotenv": "^16.3.1",
     "mongoose": "^7.3.1",
     "puppeteer": "^20.7.3"
