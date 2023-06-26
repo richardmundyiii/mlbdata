@@ -4,12 +4,19 @@ const Twenty23 = require("../../models/mlbData");
 require("dotenv").config();
 require("../../config/database");
 
+const day = 01;
+const month = 03;
+const year = 2023;
+
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://www.foxsports.com/mlb/scores?date=2023-03-31", {
-    waitUntil: "domcontentloaded",
-  });
+  await page.goto(
+    `https://www.foxsports.com/mlb/scores?date=${year}-${month}-${day}`,
+    {
+      waitUntil: "domcontentloaded",
+    }
+  );
 
   const gameData = await page.evaluate(() => {
     const games = Array.from(document.querySelectorAll(".score-chip.final"));

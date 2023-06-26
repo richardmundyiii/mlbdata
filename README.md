@@ -37,3 +37,13 @@ Using Puppeteer and the FoxSports website, you can scrape and save all daily MLB
 ![VSCode](https://img.shields.io/badge/-VS_Code-05122A?style=flat&logo=visualstudio)
 
 </div>
+
+<div>
+
+## Getting Started
+
+<article>
+
+</article>
+
+</div>
